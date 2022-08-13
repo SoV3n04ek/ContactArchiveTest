@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const { response } = require('express');
 let Contact = require('../models/contacts.model');
 
 // API EP - for get list contacts
@@ -19,5 +20,12 @@ router.route('/add').post((request, response) => {
         .then(() => response.json("User added succesfully!"))
         .catch(error => response.status(400).json(`Server add_user-error: ${error}`));
 });
+
+// API EP - for deleting contact by id 
+router.route('/:id').delete((request, response) => {
+    Contact.findByIdAndDelete(request.params.id)
+        .then(() => response.json('Contact was deleted successfuly! '))
+        .catch(error => response.status(400).json('DeletedContact-Error: ' + error));
+})
 
 module.exports = router;

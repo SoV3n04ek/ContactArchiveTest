@@ -12,9 +12,16 @@ export const ContactsList = () => {
             .catch(error => console.log(error));
     }, []);
 
+    const deleteContact = (id) => {
+        axios.delete('http://localhost:5000/contacts/' + id)
+            .then(result => console.log(result.data))
+            .catch(error => console.log(error));
+        setContacts(contacts.filter(item => item._id !== id));
+    };
+
     const displayContactsList = () => (
         contacts.map(item => (
-            <Contact key={item._id} contact={item} />
+            <Contact key={item._id} contact={item} deleteContact={deleteContact} />
         ))
     );
 
