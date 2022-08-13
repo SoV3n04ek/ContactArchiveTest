@@ -28,4 +28,11 @@ router.route('/:id').delete((request, response) => {
         .catch(error => response.status(400).json('DeletedContact-Error: ' + error));
 })
 
+// API EP - for get contact by id
+router.route('/:id').get((request, response) => {
+    Contact.findById(request.params.id)
+        .then(contact => response.json(contact))
+        .catch(error => response.status(400).json('FindContactById-Error' + error));
+});
+
 module.exports = router;
